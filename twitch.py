@@ -9,9 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.common.action_chains import ActionChains
 
-
-
-
 url_category = "https://www.twitch.tv/directory/category/"
 url_base = "https://twitch.tv/"
 url_base_category = "https://www.twitch.tv/directory"
@@ -20,16 +17,7 @@ driver = webdriver.Safari(options=options)
 driver.set_window_size(1, 1)
 driver.set_window_position(-2000, 0)  # Moves the window off-screen
 
-actions = ActionChains(driver)
-
-# Scroll down by sending the PAGE_DOWN key
-
-
-
-# TODO
-# error with label
 driver.get(url_base_category)
-#time.sleep(1)
 soup = BeautifulSoup(driver.page_source, 'html.parser')
 
 time.sleep(0.5)
@@ -57,32 +45,7 @@ else:
     channels = [div.find('a', href=True)['href'] for div in loadedStreamDivs]
     terminal_menu = TerminalMenu(channels, title="Channels")
     menu_entry_index = terminal_menu.show()
-#sys.quit()
 
-"""
-match menu_entry_index: 
-    case None: sys.exit()
-    case 0:
-        try:
-            label = input("Twitch handle: ")
-            usedQuery = True
-            driver.get(url_base+label.lower())
-        except:
-            terminal_menu = TerminalMenu(categories, title="Categories")
-            menu_entry_index = terminal_menu.show()
-    case _:
-        driver.get(url_category+categories[menu_entry_index].lower())
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        container = soup.find('div', class_='ScTower-sc-1sjzzes-0 fwymPs tw-tower')
-        loadedStreamDivs = container.find_all('div', attrs={'data-target': True})
-        channels = [div.find('a', href=True)['href'] for div in loadedStreamDivs]
-        channels.append("Exit")
-        terminal_menu = TerminalMenu(channels, title="Channels")
-        menu_entry_index = terminal_menu.show()
-
-        if menu_entry_index is None:
-            sys.exit()
-"""
 driver.quit()
 command = ["streamlink", url_base+channels[menu_entry_index], "best"]
 process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
