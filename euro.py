@@ -16,19 +16,19 @@ def formatEntry(homeTeam, awayTeam, date):
     return ["{} vs {}".format(homeTeam, awayTeam), date[0], date[1], date[0], date[1], "FALSE", "", ""]
 
 
-#url = input("enter a flashscore link with the coming fixtures: ")
+url = input("enter a flashscore link with the coming fixtures: ")
 
-
-url = "https://www.flashscore.com/football/england/premier-league/fixtures/"
+    
+#url = "https://www.flashscore.com/football/england/premier-league/fixtures/"
 options = webdriver.SafariOptions()
 driver = webdriver.Safari(options=options)
 
 driver.get(url)
 html_content = driver.page_source
 
-a_element = driver.find_element(By.CLASS_NAME, "event__more")
-driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].click();", a_element)
-time.sleep(1)
+#a_element = driver.find_element(By.CLASS_NAME, "event__more")
+#driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].click();", a_element)
+#time.sleep(1)
 
 soup = BeautifulSoup(html_content, 'html.parser')
 
@@ -48,11 +48,11 @@ with open('output.csv', mode='w', newline='') as file:
     n = 1    
     while controller:
         try:
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "event__more")))
             a_element = driver.find_element(By.CLASS_NAME, "event__more")   
             driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].click();", a_element)
-            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "event__more")))
             time.sleep(2)
-
+            print("error")
         except:
             soup = BeautifulSoup(driver.page_source, 'html.parser')
             sportNameDivs = soup.find_all('div', class_ = 'event__match')
