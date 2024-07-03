@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from selenium.webdriver.common.action_chains import ActionChains
 
 url_category = "https://www.twitch.tv/directory/category/"
 url_base = "https://twitch.tv/"

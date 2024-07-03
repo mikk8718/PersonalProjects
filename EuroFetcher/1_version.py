@@ -26,16 +26,8 @@ driver = webdriver.Safari(options=options)
 driver.get(url)
 html_content = driver.page_source
 
-#a_element = driver.find_element(By.CLASS_NAME, "event__more")
-#driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].click();", a_element)
-#time.sleep(1)
 
 soup = BeautifulSoup(html_content, 'html.parser')
-
-# TODO
-# fix view more (done)
-# add try catch (done)
-# more robust input handling
 controller = True
 
 
