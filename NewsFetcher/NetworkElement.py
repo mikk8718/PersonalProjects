@@ -79,5 +79,5 @@ class Menu(object):
         return self._index
     
     @index.setter
-    def password(self, new_index):
+    def index(self, new_index):
         self._index = new_index
