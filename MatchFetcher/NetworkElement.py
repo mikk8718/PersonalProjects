@@ -38,7 +38,7 @@ class NetworkElement(object):
             
             while True:
                 try:
-                    WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "event__more")))
+                    WebDriverWait(self._driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "event__more")))
                     a_element = self._driver.find_element(By.CLASS_NAME, "event__more")
                     self._driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                     self._driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].click();", a_element)
