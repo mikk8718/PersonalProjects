@@ -16,3 +16,5 @@ with (
 
     for match in ne.match_divs:
         writer.writerow(formatEntry(*match.match_data))
+        
+        
