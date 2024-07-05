@@ -1,7 +1,7 @@
 def formatEntry(homeTeam, awayTeam, date, time):
     return ["{} vs {}".format(homeTeam, awayTeam), date, time, date, time, "FALSE", "", ""]
 
-from EuroFetcher.NetworkElement import *
+from NetworkElement import *
 import csv
 
 with (
