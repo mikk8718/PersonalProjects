@@ -8,5 +8,5 @@ with (
     try:
         for i in menu.index: webbrowser.open_new_tab(ne.articles[i].link)
     except:
-        raise Exception("error")
+        raise Exception("Error opening articles")
     

@@ -1,6 +1,5 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
-import time
 from simple_term_menu import TerminalMenu
 import sys
 
@@ -12,15 +11,15 @@ class MenuError(Exception):
 
 class Article(object):
     def __init__(self, data):
-        self.data = data
+        self._data = data
         
     @property     
     def title(self):
-        return self.data['title']
+        return self._data['title']
     
     @property
     def link(self):
-        return "https://www.flashscore.dk"+self.data['href']
+        return "https://www.flashscore.dk"+self._data['href']
     
 class Articles(object):
     def __init__(self, data):
@@ -41,16 +40,15 @@ class NetworkElement(object):
         try:
             options = webdriver.ChromeOptions()
             options.add_argument("--headless")
-            self.driver = webdriver.Chrome(options=options)
-            self.driver.get(url)
-            self.driver.set_window_size(1500, 1500)    
+            self._driver = webdriver.Chrome(options=options)
+            self._driver.get(url)
         except:
             raise NetworkElementError("Failed intial response")
 
     @property
     def articles(self):
         try:
-            soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+            soup = BeautifulSoup(self._driver.page_source, 'html.parser')
             news_sections = soup.find_all('div', class_='fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped')
             return Articles((news_sections[0].find_all('a') + news_sections[1].find_all('a'))[:-1])
         except:
@@ -60,13 +58,13 @@ class NetworkElement(object):
         return self
     
     def __exit__(self, exctype, excinst, exectb):
-        self.driver.quit()
+        self._driver.quit()
 
 class Menu(object):
     def __init__(self, options, title):
         try:
-            self.menu = TerminalMenu(options, title=title, multi_select=True)
-            self.index = self.menu.show()
+            self._menu = TerminalMenu(options, title=title, multi_select=True)
+            self._index = self._menu.show()
         except:
             raise MenuError("Couldn't load menu")    
     
@@ -75,3 +73,11 @@ class Menu(object):
     
     def __exit__(self, exctype, excinst, exectb):
         sys.exit()
+
+    @property
+    def index(self):
+        return self._index
+    
+    @index.setter
+    def password(self, new_index):
+        self._index = new_index
