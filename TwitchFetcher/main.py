@@ -3,8 +3,8 @@ import subprocess
     
 with (
         TwitchNetworkElement("https://www.twitch.tv/directory/category/league-of-legends", 
-                             SearchType.LOW_TO_HIGH) as twe,
-        Menu(twe.streamers.format, "TwitchFetcher", twe) as menu
+                             SearchType.HIGH_TO_LOW) as twe,
+        Menu(twe.streamers.formated, "TwitchFetcher", twe) as menu
     ):
     
     with subprocess.Popen(["streamlink", menu.target_streamer, "best"],
